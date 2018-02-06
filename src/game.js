@@ -1,5 +1,13 @@
 module.exports = Game;
 
+/**
+ * A new game creates a new `grid` (the main grid which gets rendered and used as the model for the next gen)
+ * A new game creates a `newGrid` (copied to the main grid for rendering before cleared)
+ * A new game starts at Generation 0
+ *
+ * @class Game
+ * @constructor
+ */
 function Game() {
   this.grid = this.eraseGrid();
   this.newGrid = this.eraseGrid();
@@ -10,6 +18,10 @@ var p = Game.prototype;
 
 p.grid = null;
 
+/**
+ * @method eraseGrid
+ * @returns {*[]}
+ */
 p.eraseGrid = function () {
   return [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,14 +37,34 @@ p.eraseGrid = function () {
   ];
 };
 
+/**
+ * @method spawnCell
+ * @param row
+ * @param col
+ */
 p.spawnCell = function (row, col) {
   this.grid[row][col] = 1;
 };
 
+/**
+ * @method killCell
+ * @param row
+ * @param col
+ */
 p.killCell = function (row, col) {
   this.grid[row][col] = 0;
 };
 
+/**
+ * retuns the number of neighbours given a cell position (row, col)
+ * including diagonal cells, and accounting for cells at the edge of the game
+ * provides some complexity here
+ *
+ * @method detectNumNeighbours
+ * @param row
+ * @param col
+ * @returns {number}
+ */
 p.detectNumNeighbours = function (row, col) {
   var numNeighbours = 0;
   //top left diagonal
@@ -79,6 +111,16 @@ p.gameLoop = function () {
   this.render();
 };
 
+/**
+ * Checks a cell located at row,col
+ * against Conway's Game of Life rules
+ * based on: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+ *
+ * @method checkRules
+ * @param row
+ * @param col
+ * @returns {number}
+ */
 p.checkRules = function (row, col) {
   if (this.detectNumNeighbours(row, col) < 2) {          //1 death from under population
     return 0;
@@ -89,6 +131,11 @@ p.checkRules = function (row, col) {
   }
 };
 
+/**
+ * Render's the grid
+ *
+ * @method render
+ */
 p.render = function () {
   var i;
   var grid = this.grid;
