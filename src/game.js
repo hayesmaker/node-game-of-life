@@ -66,15 +66,15 @@ p.killCell = function (row, col) {
 p.detectNumNeighbours = function (row, col) {
   var numNeighbours = 0;
   //top left diagonal
-  if (this.grid[row -1] && this.grid[row -1][col - 1]) {
+  if (this.grid[row - 1] && this.grid[row - 1][col - 1]) {
     numNeighbours += this.grid[row - 1][col - 1];
   }
   //top right diagonal
-  if (this.grid[row -1] && this.grid[row -1][col + 1]) {
+  if (this.grid[row - 1] && this.grid[row - 1][col + 1]) {
     numNeighbours += this.grid[row - 1][col + 1];
   }
   //bottom left diagonal
-  if (this.grid[row + 1] && this.grid[row +1][col - 1]) {
+  if (this.grid[row + 1] && this.grid[row + 1][col - 1]) {
     numNeighbours += this.grid[row + 1][col - 1];
   }
   //bottom right diagonal
