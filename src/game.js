@@ -17,6 +17,7 @@ function Game() {
 var p = Game.prototype;
 
 p.grid = null;
+p.newGrid = null;
 
 /**
  * @method eraseGrid
