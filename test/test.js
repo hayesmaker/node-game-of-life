@@ -5,9 +5,11 @@ var expect = chai.expect;
 
 describe('Game Of Life', function () {
   var game;
+  var spawnCell;
 
   beforeEach(function () {
     game = new Game();
+    spawnCell = game.spawnCell.bind(game);
   });
 
   afterEach(function () {
@@ -28,20 +30,20 @@ describe('Game Of Life', function () {
 
   it('should be able to spawn a cell by row + col', function () {
     expect(game.grid[0][0]).to.equal(0);
-    game.spawnCell(0, 0);
+    spawnCell(0, 0);
     expect(game.grid[0][0]).to.equal(1);
 
     expect(game.grid[2][5]).to.equal(0);
-    game.spawnCell(2, 5);
+    spawnCell(2, 5);
     expect(game.grid[2][5]).to.equal(1);
   });
 
   it('should be able to kill a cell by row + col', function () {
-    game.spawnCell(0, 0);
+    spawnCell(0, 0);
     game.killCell(0, 0);
     expect(game.grid[0][0]).to.equal(0);
 
-    game.spawnCell(2, 5);
+    spawnCell(2, 5);
     game.killCell(2, 5);
     expect(game.grid[2][5]).to.equal(0);
   });
